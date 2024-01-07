@@ -122,15 +122,29 @@ export const likeProperty = asyncHandler(async (req, res) => {
             const updatedUser = await prisma.user.update({
                 where: { email },
                 data: {
-                  favPropertiesID: {
-                    push: pid,
-                  },
+                    favPropertiesID: {
+                        push: pid,
+                    },
                 },
-              });
+            });
 
             res.json({ message: "Added property to favorites", user: updatedUser })
         };
 
+    } catch (err) {
+        throw new Error(err.message)
+    }
+})
+
+export const getAllFavorites = asyncHandler(async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const favProperties = await prisma.user.findUnique({
+            where: { email: email },
+            select: { favPropertiesID: true }
+        });
+        res.status(200).json(favProperties)
     } catch (err) {
         throw new Error(err.message)
     }

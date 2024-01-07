@@ -2,8 +2,8 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <section>
-        <div className="container paddings innerWidth flex justify-center md:justify-between items-center flex-wrap">
+    <section className=' mt-4 '>
+        <div className="container paddings innerWidth flex justify-center md:justify-between items-center flex-wrap border-t-2">
             {/* Left Side */}
             <div className="flex flex-col justify-center items-center md:items-start gap-2 ">
                 <h2 className='text-orange-400 text-3xl font-bold'>Estate Pirates</h2>
