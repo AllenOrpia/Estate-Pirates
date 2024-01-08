@@ -13,8 +13,9 @@ const Hero = () => {
         <div className="hero-left paddings text-white flex flex-col justify-center items-start gap-10 min-h-full">
 
           <div className="">
-            <h1 className='text-7xl font-semibold relative z-10'>
+           
               <motion.h1
+                className='text-7xl font-semibold relative z-10'
                 initial={{ y: "2rem", opacity: 9 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{
@@ -27,7 +28,7 @@ const Hero = () => {
                 estate
 
               </motion.h1>
-            </h1>
+            
           </div>
 
           <div className='flex flex-col justify-center items-start'>
