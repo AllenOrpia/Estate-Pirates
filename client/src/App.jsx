@@ -8,6 +8,8 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
+import Property from './pages/property/Property.jsx';
+
 
 function App() {
 
@@ -21,7 +23,13 @@ function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path='/' element={<Home />} />
-              <Route path='/properties' element={<Properties />} />
+              <Route path='/properties'  >
+                {/* The index path is basically so that if there is no one property or id then we just 
+                render the deafault properties or all properties */}
+                  <Route index element={<Properties />} />
+                  <Route path=':propertyId' element={<Property />} />
+                
+              </Route>
 
             </Route>
           </Routes>

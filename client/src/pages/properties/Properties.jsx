@@ -5,6 +5,7 @@ import UseProperties from '../../hooks/UseProperties.jsx'
 import { PuffLoader } from 'react-spinners'
 import PropertyCard from '../../components/propertycard/PropertyCard.jsx'
 
+
 const Properties = () => {
   
   const {data, isError, isLoading} = UseProperties();

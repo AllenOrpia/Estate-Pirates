@@ -23,3 +23,21 @@ export const getAllProperties = async() => {
         throw err
     }
 }
+
+export const getProperty = async(id) => {
+    try {
+        const res = await api.get(`/property/${id}`, {
+            timeout: 10 * 1000,
+        });
+
+        if (res.status === 400 || res.status === 500) {
+            throw res.data
+        }
+
+        return res.data.property
+
+    } catch(err) {
+        toast.error("Error, something went wrong")
+        throw err
+    }
+}
