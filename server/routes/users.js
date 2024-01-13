@@ -1,23 +1,24 @@
 import express from 'express';
 const router = express.Router();
 import { bookVisit, cancelBooking, createUser, getAllBookings, likeProperty, getAllFavorites } from '../controllers/users.js';
+import jwtCheck from '../config/auth0config.js';
 
-router.route('/register')
-    .post(createUser)
+
+router.post('/register', jwtCheck, createUser)
 
 router.route("/book-visit/:id")
-    .post(bookVisit)
+    .post(jwtCheck, bookVisit)
 
 router.route("/all-bookings")
     .post(getAllBookings)
 
 router.route('/cancel-booking/:id')
-    .post(cancelBooking)
+    .post(jwtCheck, cancelBooking)
 
 router.route('/favor-property/:pid')
-    .post(likeProperty)
+    .post(jwtCheck, likeProperty)
 
 router.route('/favorite-properties')
-    .post(getAllFavorites)
+    .post(jwtCheck, getAllFavorites)
 
 export { router as userRoutes };

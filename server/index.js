@@ -7,12 +7,14 @@ import { propertyRoutes } from './routes/properties.js';
 
 
 
+
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
+
 
 /* ROUTES */
 app.use('/api/user', userRoutes);

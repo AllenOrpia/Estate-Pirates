@@ -5,9 +5,7 @@ import './index.css'
 import { Auth0Provider } from '@auth0/auth0-react'
 
 
-const theme = createTheme({
-  /** Your theme override here */
-});
+
 
 function Demo() {
   return (
@@ -30,8 +28,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       >
       
         <App />
-
-      
 
     </Auth0Provider>
   </React.StrictMode>,

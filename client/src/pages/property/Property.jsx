@@ -1,6 +1,6 @@
-import React from 'react';
-import { useQuery } from 'react-query';
-import { getProperty } from '../../utils/api.js';
+import React, { useState, useContext } from 'react';
+import { useMutation, useQuery } from 'react-query';
+import { getProperty, removeVisit } from '../../utils/api.js';
 import { PuffLoader } from 'react-spinners';
 import { AiFillHeart } from 'react-icons/ai';
 import { useLocation } from 'react-router-dom';
@@ -10,13 +10,35 @@ import { FaShower } from 'react-icons/fa';
 import { AiTwotoneCar } from 'react-icons/ai';
 import { MdMeetingRoom, MdLocationPin } from 'react-icons/md';
 import Map from '../../components/map/Map.jsx';
+import useAuthCheck from '../../hooks/useAuthCheck.jsx';
+import { useAuth0 } from '@auth0/auth0-react';
+import BookingModal from '../../components/bookingModal/BookingModal.jsx';
+import UserDetailContext from '../../context/userDetailsContext.js'
+import { toast } from 'react-toastify'
 
 const Property = () => {
+    const { userDetails: { token, bookings }, setUserDetails } = useContext(UserDetailContext)
+    const { mutate: cancelBooking, isLoading: cancelling} = useMutation({
+        mutationFn: () => removeVisit(id, user?.email, token),
+        onSuccess: () => {
+            setUserDetails((prev) => ({
+                ...prev,
+                bookings: prev.bookings.filter((booking) => booking?.id !== id )
+            }));
+
+            toast.success('Visit canceled!', {position : 'bottom-right'})
+        }
+    })
     const { pathname } = useLocation();
     // Split the url by backticks and get the last part or last index as that is the id
     const id = pathname.split('/').slice(-1)[0]
     const { data, isLoading, isError } = useQuery(['resd', id], () => getProperty(id));
-    console.log(data)
+    console.log(bookings)
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const { validateLogin } = useAuthCheck();
+    const { user } = useAuth0()
 
     if (isLoading) {
         return (
@@ -54,12 +76,12 @@ const Property = () => {
                             <span className='primaryText'>{data?.title}</span>
                             <span className='orangeText text-xl'>${data?.price}</span>
                         </div>
-                        
-                       
 
 
-                         {/* Address */}
-                         <div className='flexStart gap-2'>
+
+
+                        {/* Address */}
+                        <div className='flexStart gap-2'>
                             <MdLocationPin size={25} />
                             <span className='secondaryText'>
                                 {
@@ -100,23 +122,55 @@ const Property = () => {
                             {data?.description}
                         </span>
 
-                        
+
 
                         {/* Book Tour Button */}
-                        <button className='button bg-gradient-to-r from-blue-400 to-blue-600 mt-3 w-full'>
-                            Book House Tour
-                        </button>
+                       
+                        {
+                            bookings?.map( (booking) => booking.id).includes(id) ? (
+                                <>
+                                    <button className='button w-full bg-red-500' onClick={() => cancelBooking()} disabled={cancelling}>
+                                        Cancel Booking
+                                    </button>
+                                    <span>You booked an upcoming visit on { bookings?.filter((booking) => booking?.id === id)[0].date}
+                                    
+                                    </span>
+                                
+                                
+                                </>
+                                    
+                                
+                            ) : (
+                            <button
+                                className='button bg-gradient-to-r from-blue-400 to-blue-600 mt-3 w-full'
+                                onClick={() => {
+                                    validateLogin() && setOpen(true);
+                                }}>
+                                Book House Tour
+                            </button> )
+                            
+                        }
+
+
+
+
+                        <BookingModal
+                            open={open}
+                            handleClose={handleClose}
+                            propertyId={id}
+                            email={user?.email}
+                        />
                     </div>
 
                     {/* Right */}
                     <div className='flex-1 gap-4'>
                         {/* MAP */}
-                        
-                            <Map 
-                            address={data?.address} 
-                            city={data?.city} 
+
+                        <Map
+                            address={data?.address}
+                            city={data?.city}
                             country={data?.country} />
-                        
+
                     </div>
                 </div>
 

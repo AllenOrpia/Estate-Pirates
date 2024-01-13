@@ -25,8 +25,7 @@ const ProfileMenu = ({ user, logout }) => {
 
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-                <Typography sx={{ minWidth: 100 }}>Profile</Typography>
+                
                 <Tooltip title="Account settings">
                     <IconButton
                         onClick={handleClick}
@@ -36,7 +35,7 @@ const ProfileMenu = ({ user, logout }) => {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                        <Avatar sx={{ width: 32, height: 32 }} src={user?.picture}>M</Avatar>
                     </IconButton>
                 </Tooltip>
             </Box>
@@ -76,10 +75,10 @@ const ProfileMenu = ({ user, logout }) => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <MenuItem onClick={handleClose}>
-                    <Avatar /> Profile
+                    <Avatar /> Favorites
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                    <Avatar /> My account
+                    <Avatar /> Bookings
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={handleClose}>
@@ -94,7 +93,11 @@ const ProfileMenu = ({ user, logout }) => {
                     </ListItemIcon>
                     Settings
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={ () => {
+                    localStorage.clear();
+                    handleClose();
+                    logout();
+                }}>
                     <ListItemIcon>
                         <Logout fontSize="small" />
                     </ListItemIcon>
