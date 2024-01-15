@@ -98,3 +98,21 @@ export const removeVisit = async(id, email, token) => {
         throw err
     }
 }
+
+export const toFav = async( id, email, token ) => {
+    try {
+        await api.post(`user/favor-property/${id}`, {
+            email
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+        
+        )
+    } catch(err) {
+        toast.error('Error, please try again')
+        throw err
+    }
+}

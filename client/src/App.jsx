@@ -2,7 +2,7 @@
 import Layout from './components/layout/Layout.jsx';
 import Home from './pages/Home.jsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import Properties from './pages/properties/Properties.jsx';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
@@ -11,11 +11,16 @@ import "react-toastify/dist/ReactToastify.css"
 import Property from './pages/property/Property.jsx';
 import UserDetailContext from './context/userDetailsContext.js';
 import { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios'
+import { set } from 'lodash';
 
 
 function App() {
 
   const queryClient = new QueryClient();
+
+  const { user } = useAuth0();
 
   const [userDetails, setUserDetails] = useState({
     favorites: [],
@@ -23,6 +28,7 @@ function App() {
     token: null
   });
 
+ 
 
   return (
     <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>

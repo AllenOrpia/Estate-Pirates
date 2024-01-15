@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { getProperty, removeVisit } from '../../utils/api.js';
 import { PuffLoader } from 'react-spinners';
-import { AiFillHeart } from 'react-icons/ai';
+
 import { useLocation } from 'react-router-dom';
 import './Property.css';
 
@@ -15,6 +15,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import BookingModal from '../../components/bookingModal/BookingModal.jsx';
 import UserDetailContext from '../../context/userDetailsContext.js'
 import { toast } from 'react-toastify'
+import Heart from '../../components/heart/Heart.jsx';
 
 const Property = () => {
     const { userDetails: { token, bookings }, setUserDetails } = useContext(UserDetailContext)
@@ -61,7 +62,7 @@ const Property = () => {
 
                 {/* Like Button */}
                 <div className="like">
-                    <AiFillHeart size={24} className='absolute top-20 right-12 cursor-pointer text-white' />
+                  <Heart id={id} />
                 </div>
 
                 {/* Property Image */}

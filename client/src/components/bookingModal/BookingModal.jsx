@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -27,8 +27,8 @@ const style = {
 
 const BookingModal = ({ open, handleClose, propertyId, email }) => {
 
-    const { userDetails: { token }, setUserDetails } = React.useContext(UserDetailContext)
-    const [value, setValue] = React.useState(null);
+    const { userDetails: { token }, setUserDetails } = useContext(UserDetailContext)
+    const [value, setValue] = useState(null);
 
     const handleBookingSuccess = () => {
         toast.success('Visit booked successfully', {
@@ -36,8 +36,7 @@ const BookingModal = ({ open, handleClose, propertyId, email }) => {
         });
         setUserDetails( (prev) => ({
             ...prev,
-            bookings: [
-              ...prev.bookings,
+            bookings : [...prev.bookings,
               {
                 id: propertyId,
                 date: dayjs(value).format("DD/MM/YYYY"),

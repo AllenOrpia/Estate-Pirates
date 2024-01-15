@@ -16,3 +16,16 @@ export const sliderSettings = {
         }
     }
 }
+
+export const updateFavourites = (id, favorites) => {
+    if (favorites.includes(id)) {
+        return favorites.filter((propId) => propId !== id)
+    } else {
+        return [...favorites, id]
+    }
+}
+
+export const checkFavorites = (id, favorites) => {
+    if (favorites.includes(id)) return 'red'
+    return 'white'
+}

@@ -59,12 +59,12 @@ export const getAllBookings = asyncHandler(async (req, res) => {
             select: { bookedVisits: true }
         })
 
-        res.status(200).json(bookings)
+        res.status(200).json({bookings})
 
-    } catch (err) {
-        throw new Error(err.message)
-    }
-})
+        } catch (err) {
+            throw new Error(err.message)
+        }
+    })
 
 
 export const cancelBooking = asyncHandler(async (req, res) => {
