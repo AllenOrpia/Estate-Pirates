@@ -116,3 +116,47 @@ export const toFav = async( id, email, token ) => {
         throw err
     }
 }
+
+export const getAllFav = async(email, token) => {
+    if (!token) return
+    try {
+       const res =  await api.post(`user/favorite-properties`, {
+            email
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+        
+        )
+
+        
+        return res.data['favPropertiesID']
+    } catch(err) {
+        toast.error('Error while fetching favs')
+        throw err
+    }
+}
+
+export const getAllBookings = async(email, token) => {
+    if (!token) return
+    try {
+       const res =  await api.post(`user/all-bookings`, {
+            email
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+        
+        )
+
+        
+        return res.data['bookedVisits']
+    } catch(err) {
+        toast.error('Error while fetching favs')
+        throw err
+    }
+}

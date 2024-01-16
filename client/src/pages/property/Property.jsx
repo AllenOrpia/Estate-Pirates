@@ -34,7 +34,6 @@ const Property = () => {
     // Split the url by backticks and get the last part or last index as that is the id
     const id = pathname.split('/').slice(-1)[0]
     const { data, isLoading, isError } = useQuery(['resd', id], () => getProperty(id));
-    console.log(bookings)
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

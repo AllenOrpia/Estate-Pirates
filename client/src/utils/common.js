@@ -26,6 +26,8 @@ export const updateFavourites = (id, favorites) => {
 }
 
 export const checkFavorites = (id, favorites) => {
-    if (favorites.includes(id)) return 'red'
+    if (favorites !== undefined) {
+        return favorites?.includes(id) ? "red" : "white";
+    }
     return 'white'
 }

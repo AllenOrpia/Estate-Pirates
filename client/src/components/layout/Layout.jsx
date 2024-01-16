@@ -7,9 +7,13 @@ import UserDetailContext from '../../context/userDetailsContext.js'
 import { useMutation } from 'react-query'
 import { createUser } from '../../utils/api.js'
 import axios from 'axios'
+import useFavorites from '../../hooks/useFavorites.jsx'
+import useBookings from '../../hooks/useBookings.jsx'
 
 
 const Layout = () => {
+  useBookings()
+  useFavorites()
   const { isAuthenticated, user, getAccessTokenWithPopup, getAccessTokenSilently } = useAuth0();
   const { userDetails, setUserDetails } = useContext(UserDetailContext)
 
@@ -47,6 +51,7 @@ const Layout = () => {
 
     isAuthenticated && getTokenAndRegsiter();
   }, [isAuthenticated]);
+  console.log(userDetails)
   return (
     <>
       <div className='bg-black overflow-hidden'>

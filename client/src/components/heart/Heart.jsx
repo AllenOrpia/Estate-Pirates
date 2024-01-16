@@ -10,6 +10,7 @@ import { toFav } from '../../utils/api.js';
 import { toast } from 'react-toastify';
 const Heart = ({id}) => {
 
+    const [heartColor, setHeartColor] = useState('white')
     const { validateLogin } = useAuthCheck();
     const { user } = useAuth0();
     const { 
@@ -31,7 +32,6 @@ const Heart = ({id}) => {
         setHeartColor(() => checkFavorites(id, favorites))
     }, [favorites])
 
-    const [heartColor, setHeartColor] = useState('white')
 
     const handleLike = () => {
         if (validateLogin()) {
@@ -41,6 +41,7 @@ const Heart = ({id}) => {
             }
         }
     }
+    
   return (
     <AiFillHeart size={24} 
         className='absolute top-20 right-12 cursor-pointer'

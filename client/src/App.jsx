@@ -25,7 +25,7 @@ function App() {
   const [userDetails, setUserDetails] = useState({
     favorites: [],
     bookings: [],
-    token: null
+    token: null,
   });
 
  

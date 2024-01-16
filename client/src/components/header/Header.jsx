@@ -4,16 +4,37 @@ import { BiMenuAltRight } from 'react-icons/bi'
 import OutsideClickHandler  from 'react-outside-click-handler'
 import { Link, NavLink } from 'react-router-dom'
 import ProfileMenu from '../profileMenu/ProfileMenu'
+import AddPropertyModal from '../addProperty/AddPropertyModal'
+import useAuthCheck from '../../hooks/useAuthCheck.jsx'
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    
+    const [openModal, setOpenModal] = useState(false);
+
+    const handleModalClickOpen = () => {
+      setOpenModal(true);
+    };
+  
+    const handleModalClose = () => {
+      setOpenModal(false);
+    };
+
+
     const getMenuStyle = (menuOpen) => {
         if (document.documentElement.clientWidth <= 1000) {
             return { right: !menuOpen && "-100%" }
         }
-    }
+    };
 
     const { loginWithRedirect, isAuthenticated, user, logout} = useAuth0();
+    const { validateLogin } = useAuthCheck()
+
+    const handleAddPropertyClick = () => {
+        if (validateLogin()) {
+            setModalOpened(!modalOpened)
+        }
+    }
 
     return (
         <section className="header-wrapper text-white">
@@ -32,6 +53,11 @@ const Header = () => {
                         style={getMenuStyle(menuOpen)}>
                          <NavLink to="/properties">Properties</NavLink>
                          <a href="mailto:dummyEmail@gmail.com">Contact</a>
+
+                         <div onClick={handleModalClickOpen}>
+                            Add Property
+                         </div>
+                         <AddPropertyModal opened={openModal} setOpened={setOpenModal} onModalClose={handleModalClose} />
 
                          {
                             !isAuthenticated ? 
