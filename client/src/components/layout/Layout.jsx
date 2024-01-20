@@ -26,15 +26,6 @@ const Layout = () => {
   useEffect(() => {
     const getTokenAndRegsiter = async () => {
 
-      // const res = await getAccessTokenWithPopup({
-      //   authorizationParams: {
-      //     audience: "http://localhost:3000",
-      //     scope: "openid profile email",
-      //   },
-      // });
-      // localStorage.setItem("access_token", res);
-      // setUserDetails((prev) => ({ ...prev, token: res }));
-      // mutate(res)
       const res = await getAccessTokenSilently({
         authorizationParams: {
           audience: "http://localhost:3000",
@@ -51,7 +42,7 @@ const Layout = () => {
 
     isAuthenticated && getTokenAndRegsiter();
   }, [isAuthenticated]);
-  console.log(userDetails)
+  
   return (
     <>
       <div className='bg-black overflow-hidden'>

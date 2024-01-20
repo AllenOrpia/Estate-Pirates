@@ -160,3 +160,19 @@ export const getAllBookings = async(email, token) => {
         throw err
     }
 }
+
+export const createProperty = async (email, token, data) => {
+    try {
+        const res = await api.post('/property/create', {
+            email, data
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    } catch (err) {
+        toast.error('Error while creating property, please try again')
+        throw err
+    }
+    
+}

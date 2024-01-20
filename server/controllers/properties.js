@@ -1,6 +1,8 @@
 import asyncHandler from 'express-async-handler';
 import { prisma } from '../config/prisma.config.js';
 
+
+
 export const createProperty = asyncHandler(async (req, res) => {
     const {
         title,
@@ -9,19 +11,34 @@ export const createProperty = asyncHandler(async (req, res) => {
         address,
         country,
         city,
-        facilities,
+        bathrooms,
+        parking,
+        bedrooms,
+        userEmail,
         image,
-        userEmail
-    } = req.body.data
+    } = req.body
 
-    console.log(req.body.data);
+
+
+
+
+
+
+
+
+
     try {
+
         const property = await prisma.properties.create({
             data: {
                 title, description, price,
                 address, country,
                 city,
-                facilities,
+                facilities: {
+                    bathrooms: bathrooms,
+                    parking: parking,
+                    bedrooms: bedrooms
+                },
                 image,
                 owner: { connect: { email: userEmail } }
             }
@@ -34,9 +51,15 @@ export const createProperty = asyncHandler(async (req, res) => {
 
     } catch (err) {
         if (err.code === 'P2002') {
+            res.json({
+                message: "Property with the same address already exists!",
+                
+            })
             throw new Error('A property with the same address already exists!')
+        } else {
+            throw new Error(err.message)
+
         }
-        throw new Error(err.message)
     }
 })
 
@@ -57,7 +80,7 @@ export const getOneProperty = asyncHandler(async (req, res) => {
         const property = await prisma.properties.findUnique({
             where: { id: id }
         })
-        res.status(200).json({property})
+        res.status(200).json({ property })
 
     } catch (err) {
         throw new Error(err.message)

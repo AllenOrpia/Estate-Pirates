@@ -10,14 +10,37 @@ import Input from '@mui/material/Input';
 
 import Typography from '@mui/material/Typography';
 import { useAuth0 } from '@auth0/auth0-react';
+import Map from '../../components/map/Map.jsx';
+import axios from 'axios';
+import UserDetailContext from '../../context/userDetailsContext.js'
+import { toast } from 'react-toastify';
 
 
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+
+const countries = [
+    'United States',
+    'Spain',
+    'Canada',
+    'Japan',
+    'Indonesia',
+    'China',
+    'South Korea',
+    'Phillippines',
+    'Vietnam',
+    'Taiwan',
+    'United Kingdom',
+    'France'
+]
 
 const AddPropertyModal = ({ opened, setOpened, onModalClose }) => {
 
-    const { user } = useAuth0()
+    const { user } = useAuth0();
+    const userEmail = user?.email
+    const { userDetails: { token }, setUserDetails } = React.useContext(UserDetailContext)
+
+
+
 
     const [propertyDetails, setPropertyDetails] = React.useState({
         title: '',
@@ -26,134 +49,290 @@ const AddPropertyModal = ({ opened, setOpened, onModalClose }) => {
         city: '',
         address: '',
         image: null,
-        facilities: {
-            bedrooms: 0,
-            parkings: 0,
-            bathrooms: 0,
-        }, userEmail: user?.email
+
+        bedrooms: 0,
+        parking: 0,
+        bathrooms: 0,
+    });
+
+const handleChange = (e) => {
+    setPropertyDetails((currProperty) => {
+        return {
+            ...currProperty, [e.target.name]: e.target.value
+        }
     })
+};
 
 
 
-    const [fullWidth, setFullWidth] = React.useState(true);
-    const [maxWidth, setMaxWidth] = React.useState('lg');
+const handleFile = async (e) => {
+    const file = event.target.files[0]
+    const imageData = new FormData();
+    imageData.append('file', file)
+    imageData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOADPRESET)
+    await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUDNAME}/image/upload`, imageData)
+        .then((res) => {
+            console.log(res)
+            setPropertyDetails((currProperty) => {
+                return { ...currProperty, image: res.data.secure_url }
+            })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
 
-    const handleMaxWidthChange = (event) => {
-        setMaxWidth(
-            // @ts-expect-error autofill of arbitrary value is not handled.
-            event.target.value,
-        );
-    };
+const preset_key = ''
+const cloud_name = ''
 
-    const handleFullWidthChange = (event) => {
-        setFullWidth(event.target.checked);
-    };
 
-    return (
-        <React.Fragment>
-            {/* <Button variant="outlined" onClick={handleClickOpen}>
-                Open form dialog
-            </Button> */}
-            <Dialog
-                fullWidth={fullWidth}
-                maxWidth={maxWidth}
-                open={opened}
-                onClose={onModalClose}
-                PaperProps={{
-                    component: 'form',
-                    onSubmit: (event) => {
-                        event.preventDefault();
-                        const formData = new FormData(event.currentTarget);
-                        const formJson = Object.fromEntries(formData.entries());
-                        const email = formJson.email;
-                        console.log(email);
-                        onModalClose();
-                    },
-                }}
 
-            >
-                <DialogTitle>List New Property</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Please fill out the form to list a new property
-                    </DialogContentText>
 
+const [fullWidth, setFullWidth] = React.useState(true);
+const [maxWidth, setMaxWidth] = React.useState('xl');
+
+const handleMaxWidthChange = (event) => {
+    setMaxWidth(
+        // @ts-expect-error autofill of arbitrary value is not handled.
+        event.target.value,
+    );
+};
+
+const handleFullWidthChange = (event) => {
+    setFullWidth(event.target.checked);
+};
+
+return (
+    <React.Fragment>
+
+        <Dialog
+            fullWidth={fullWidth}
+            maxWidth={maxWidth}
+            open={opened}
+            onClose={onModalClose}
+            PaperProps={{
+                component: 'form',
+                onSubmit: (event) => {
+                    event.preventDefault();
+                    
+                    const newData = {...propertyDetails, price: parseInt(propertyDetails.price)}
+
+
+
+                    try {
+                        axios.post("http://localhost:3000/api/property/create", {
+                            ...newData, userEmail
+                        }, {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            }
+                        })
+                            .then((res) => {
+                                toast.success(res.data.message)
+                            })
+                            .catch((err) => {
+                                
+                                toast.error(err.response.data.message)
+                               
+                            }) 
+                    } catch (err) {
+                        toast.error('Error while creating property, please try again')
+                        throw err
+                    }
+
+
+
+
+
+
+
+
+                    onModalClose();
+                },
+            }}
+
+        >
+            <DialogTitle>List New Property</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    Please fill out the form to list a new property
+                </DialogContentText>
+
+                <TextField
+                    autoFocus
+                    required
+                    margin="dense"
+                    id="title"
+                    name="title"
+                    label="Title"
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                    onChange={handleChange}
+                />
+
+                <TextField
+                    required
+                    margin='normal'
+                    fullWidth
+                    id="description"
+                    name='description'
+                    label="Description"
+                    multiline
+                    rows={4}
+                    defaultValue=""
+                    variant="filled"
+                    onChange={handleChange}
+                />
+
+                <TextField
+                    onChange={handleChange}
+                    autoFocus
+                    required
+                    margin="normal"
+                    id="price"
+                    name="price"
+                    label="Price"
+                    type="number"
+
+
+                    variant="standard"
+                />
+
+                <div className='flex justify-start items-center gap-8'>
                     <TextField
+                        onChange={handleChange}
                         autoFocus
                         required
-                        margin="dense"
-                        id="email"
-                        name="email"
-                        label="Title"
+                        margin="normal"
+                        id="address"
+                        name="address"
+                        label="Address"
                         type="text"
-                        fullWidth
+
+                        variant="standard"
+                    />
+                    <TextField
+                        onChange={handleChange}
+                        autoFocus
+                        required
+                        margin="normal"
+                        id="city"
+                        name="city"
+                        label="City"
+                        type="text"
+
+                        variant="standard"
+                    />
+                    <TextField
+                        onChange={handleChange}
+                        autoFocus
+                        required
+                        margin="normal"
+                        id="country"
+                        name="country"
+                        label="Country"
+                        select
+                        defaultValue={'United States'}
+                        SelectProps={{
+                            native: true
+                        }}
+
+                        variant="standard"
+                    >
+                        {countries.map((option, i) => (
+                            <option key={i} value={option}>
+                                {option}
+                            </option>
+                        ))}
+                    </TextField>
+
+
+                </div>
+
+
+
+
+                <div className='flex justify-start items-center gap-8'>
+                    <TextField
+                        onChange={handleChange}
+                        autoFocus
+                        required
+                        margin="normal"
+                        id="bedrooms"
+                        name="bedrooms"
+                        label="Bedrooms"
+                        type="number"
+                        InputProps={{
+                            inputProps: { min: 0 }
+                        }}
+
+                        variant="standard"
+                    />
+                    <TextField
+                        onChange={handleChange}
+                        autoFocus
+                        required
+                        margin="normal"
+                        id="parking"
+                        name="parking"
+                        label="Parking"
+                        type="number"
+                        InputProps={{
+                            inputProps: { min: 0 }
+                        }}
+
                         variant="standard"
                     />
 
                     <TextField
+                        onChange={handleChange}
+                        autoFocus
                         required
-                        margin='normal'
-                        fullWidth
-                        id="filled-multiline-static"
-                        label="Description"
-                        multiline
-                        rows={4}
-                        defaultValue=""
-                        variant="filled"
+                        margin="normal"
+                        id="bathrooms"
+                        name="bathrooms"
+                        label="Bathrooms"
+                        InputProps={{
+                            inputProps: { min: 0 }
+                        }}
+                        type="number"
+
+                        variant="standard"
                     />
-                    
-                    <div className='flex justify-start items-center gap-8'>
-                        <TextField
-
-                            autoFocus
-                            required
-                            margin="normal"
-                            id="email"
-                            name="email"
-                            label="Address"
-                            type="text"
-
-                            variant="standard"
-                        />
-                        <TextField
-
-                            autoFocus
-                            required
-                            margin="normal"
-                            id="email"
-                            name="email"
-                            label="City"
-                            type="text"
-
-                            variant="standard"
-                        />
-                        <TextField
-                            autoFocus
-                            required
-                            margin="normal"
-                            id="email"
-                            name="email"
-                            label="country"
-                            type="text"
-
-                            variant="standard"
-                        />
-
-                    </div>
-                    
-                    
 
 
 
-                </DialogContent>
+                </div>
+                <TextField
+                    autoFocus
+                    required
+                    margin='normal'
+                    id='image'
+                    name='image'
+                    type='file'
+                    onChange={handleFile}
 
-                <DialogActions>
-                    <Button onClick={onModalClose}>Cancel</Button>
-                    <Button type="submit">Subscribe</Button>
-                </DialogActions>
-            </Dialog>
-        </React.Fragment>
-    )
+
+                />
+                <Map
+                    address={propertyDetails.address}
+                    city={propertyDetails.city}
+                    country={propertyDetails.country}
+                ></Map>
+
+
+
+
+            </DialogContent>
+
+            <DialogActions>
+                <Button onClick={onModalClose}>Cancel</Button>
+                <Button type="submit">Submit</Button>
+            </DialogActions>
+        </Dialog>
+    </React.Fragment>
+)
 }
 
 export default AddPropertyModal

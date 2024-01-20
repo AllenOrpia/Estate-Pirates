@@ -1,6 +1,8 @@
 import express from 'express';
 import { createProperty, getAllProperties, getOneProperty } from '../controllers/properties.js';
 import jwtCheck from '../config/auth0config.js';
+
+
 const router = express.Router();
 
 router.route('/create')
