@@ -14,6 +14,8 @@ import { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios'
 import { set } from 'lodash';
+import Bookings from './pages/bookings/Bookings.jsx';
+import Favorites from './pages/favorites/Favorites.jsx';
 
 
 function App() {
@@ -44,7 +46,10 @@ function App() {
                   <Route index element={<Properties />} />
                   <Route path=':propertyId' element={<Property />} />
 
+
                 </Route>
+                <Route path='/bookings' element={<Bookings />} />
+                <Route path='/favorites' element={<Favorites />} />
 
               </Route>
             </Routes>

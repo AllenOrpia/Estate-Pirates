@@ -68,7 +68,7 @@ const Property = () => {
                 <img src={data?.image} alt="Property Image" className='property-image self-center w-full rounded-2xl object-cover' />
 
                 {/* Property Details */}
-                <div className="flex justify-between items-center flex-wrap w-full gap-4">
+                <div className="flex flex-col lg:flex-row justify-between items-center flex-wrap w-full gap-4">
                     {/* Left */}
                     <div className='flexColStart left flex-1 gap-4'>
                         {/* Head */}

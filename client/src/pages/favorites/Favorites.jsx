@@ -1,14 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import SearchBar from '../../components/searchbar/SearchBar.jsx'
-import './Properties.css'
+import '../properties/Properties.css'
 import UseProperties from '../../hooks/UseProperties.jsx'
 import { PuffLoader } from 'react-spinners'
 import PropertyCard from '../../components/propertycard/PropertyCard.jsx'
+import UserDetailContext from '../../context/userDetailsContext.js'
+import { property } from 'lodash'
 
 
-const Properties = () => {
+const Favorites = () => {
   const [filter, setFilter] = useState('')
   const { data, isError, isLoading } = UseProperties();
+  const { userDetails : { favorites }} = useContext(UserDetailContext);
+  
   if (isError) {
     return (
       <div className="wrapper">
@@ -37,6 +41,8 @@ const Properties = () => {
           {
             // data.map((card, i) => (<PropertyCard card={card} key={i} />))
             data
+              .filter((property) => favorites.includes(property.id)
+              )
               .filter((property) => 
                 property.title.toLowerCase().includes(filter.toLowerCase()) ||
                 property.city.toLowerCase().includes(filter.toLowerCase()) ||
@@ -48,6 +54,6 @@ const Properties = () => {
       </div>
     </div>
   )
-}
+  }
 
-export default Properties
+export default Favorites

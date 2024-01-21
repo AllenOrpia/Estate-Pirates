@@ -16,6 +16,7 @@ const Layout = () => {
   useFavorites()
   const { isAuthenticated, user, getAccessTokenWithPopup, getAccessTokenSilently } = useAuth0();
   const { userDetails, setUserDetails } = useContext(UserDetailContext)
+  console.log(userDetails)
 
 
   const { mutate } = useMutation({

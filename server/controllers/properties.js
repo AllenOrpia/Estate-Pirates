@@ -51,7 +51,7 @@ export const createProperty = asyncHandler(async (req, res) => {
 
     } catch (err) {
         if (err.code === 'P2002') {
-            res.json({
+            res.status(500).json({
                 message: "Property with the same address already exists!",
                 
             })

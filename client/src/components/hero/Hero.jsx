@@ -37,7 +37,7 @@ const Hero = () => {
 
           </div>
 
-          <SearchBar />
+          {/* <SearchBar /> */}
 
           <div className="hero-stats flex justify-between items-center gap-2 flex-wrap w-full mt-3">
             <div className="flexColStart stat text-xl">

@@ -11,6 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import { NavLink } from 'react-router-dom';
 
 const ProfileMenu = ({ user, logout }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -75,24 +76,17 @@ const ProfileMenu = ({ user, logout }) => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <MenuItem onClick={handleClose}>
-                    <Avatar /> Favorites
+                <NavLink to={'/favorites'} className='flex justify-center items-center'>
+                        <Avatar /> Favorites
+                    </NavLink>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                    <Avatar /> Bookings
+                    <NavLink to={'/bookings'} className='flex justify-center items-center'>
+                        <Avatar /> Bookings
+                    </NavLink>
                 </MenuItem>
                 <Divider />
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <PersonAdd fontSize="small" />
-                    </ListItemIcon>
-                    Add another account
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <Settings fontSize="small" />
-                    </ListItemIcon>
-                    Settings
-                </MenuItem>
+                
                 <MenuItem onClick={ () => {
                     localStorage.clear();
                     handleClose();
