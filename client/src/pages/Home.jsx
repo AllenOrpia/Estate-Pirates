@@ -14,7 +14,6 @@ const Home = () => {
         <div className='bg-white'>
             <div className=' bg-black'>
                 <div className='white-gradient absolute w-80 h-80 bg-white bg-opacity-55 filter blur-xl rounded-full'></div>
-
                 <Hero />
             </div>
             <Companies />

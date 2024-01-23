@@ -6,8 +6,8 @@ const Footer = () => {
         <div className="container paddings innerWidth flex justify-center md:justify-between items-center flex-wrap border-t-2">
             {/* Left Side */}
             <div className="flex flex-col justify-center items-center md:items-start gap-2 ">
-                <h2 className='text-orange-400 text-3xl font-bold'>Estate Pirates</h2>
-                <span className='secondaryText break-all'>
+                <h2 className='text-teal-600 text-xl font-semibold'>Estate Pirates</h2>
+                <span className='text-slate-500 text-xl'>
                     Our goal is to find you and your family 
                     the best home possible
                 </span>
@@ -15,8 +15,8 @@ const Footer = () => {
             </div>
             {/* Right Side */}
             <div className='flex flex-col justify-center items-center md:items-start gap-2 '>
-                <span className='primaryText'>Information</span>
-                <span className='secondaryText'>123 Sunset Drive, California</span>
+                <span className='text-slate-600 text-3xl font-bold'>Information</span>
+                <span className='text-slate-500 text-xl'>123 Sunset Drive, California</span>
 
                 <div className="flex justify-evenly items-center gap-2 flex-wrap">
                     <span className='text-semibold text-lg'>Property</span>

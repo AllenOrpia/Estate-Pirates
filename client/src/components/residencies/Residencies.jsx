@@ -32,7 +32,7 @@ const Residencies = () => {
         <div className='residencies-wrapper'>
             <div className="paddings innerWidth overflow-hidden gap-8 flex flex-col  ">
                     <div className="flexColStart residencies-headin mb-8">
-                        <span className='text-orange-400 text-xl'>Best Choices</span>
+                        <span className='text-teal-600 text-xl font-semibold'>Best Choices</span>
                         <span className='text-slate-600 text-3xl font-bold'>Popular Estates</span>
                     </div>
                     <div className=''>

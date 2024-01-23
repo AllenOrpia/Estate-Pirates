@@ -68,7 +68,7 @@ const Header = () => {
                          {
                             !isAuthenticated ? 
                                 <button 
-                                    className='button bg-gradient-to-r from-blue-400 to-blue-600'
+                                    className='button bg-gradient-to-r from-blue-400 to-blue-700'
                                     onClick={ loginWithRedirect }
                                 >Log In</button> 
                                 :

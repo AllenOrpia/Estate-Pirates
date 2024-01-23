@@ -46,7 +46,7 @@ const Layout = () => {
   
   return (
     <>
-      <div className='bg-black overflow-hidden'>
+      <div className=' bg-black overflow-hidden'>
         <Header />
         <Outlet />
       </div>
