@@ -6,7 +6,7 @@ const Footer = () => {
         <div className="container paddings innerWidth flex justify-center md:justify-between items-center flex-wrap border-t-2">
             {/* Left Side */}
             <div className="flex flex-col justify-center items-center md:items-start gap-2 ">
-                <h2 className='text-teal-600 text-xl font-semibold'>Estate Pirates</h2>
+                <h2 className='text-blue-600 text-xl font-semibold'>Estate Pirates</h2>
                 <span className='text-slate-500 text-xl'>
                     Our goal is to find you and your family 
                     the best home possible

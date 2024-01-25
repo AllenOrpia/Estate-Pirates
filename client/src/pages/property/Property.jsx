@@ -61,7 +61,7 @@ const Property = () => {
 
                 {/* Like Button */}
                 <div className="like">
-                  <Heart id={id} />
+                  <Heart id={id}  />
                 </div>
 
                 {/* Property Image */}
@@ -73,8 +73,8 @@ const Property = () => {
                     <div className='flexColStart left flex-1 gap-4'>
                         {/* Head */}
                         <div className='flex justify-start items-center gap-4 w-full'>
-                            <span className='primaryText'>{data?.title}</span>
-                            <span className='orangeText text-xl'>${data?.price}</span>
+                            <span className='text-slate-600 text-3xl font-bold'>{data?.title}</span>
+                            <span className='text-slate-500 text-xl'><span className='text-blue-500'>$</span>{data?.price}</span>
                         </div>
 
 
@@ -83,18 +83,18 @@ const Property = () => {
                         {/* Address */}
                         <div className='flexStart gap-2'>
                             <MdLocationPin size={25} />
-                            <span className='secondaryText'>
+                            <span className='text-slate-500 text-xl'>
                                 {
                                     data?.address
                                 },
 
                             </span>
-                            <span className="secondaryText">
+                            <span className="text-slate-500 text-xl">
                                 {
                                     data?.city
                                 },
                             </span>
-                            <span className="secondaryText">
+                            <span className="text-slate-500 text-xl">
                                 {
                                     data?.country
                                 }
@@ -118,7 +118,7 @@ const Property = () => {
                         </div>
 
                         {/* Property Description */}
-                        <span className='secondaryText'>
+                        <span className='text-slate-500 text-md'>
                             {data?.description}
                         </span>
 

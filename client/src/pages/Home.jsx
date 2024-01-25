@@ -1,12 +1,13 @@
 import React from 'react'
 import { useState } from 'react';
 
-import Hero from '../components/hero/hero.jsx';
+
 import Companies from '../components/companies/Companies.jsx';
 import Residencies from '../components/residencies/Residencies.jsx';
 import Value from '../components/value/Value.jsx';
 import Contact from '../components/contact/Contact.jsx';
 import GetStarted from '../components/getStarted/GetStarted.jsx';
+import Hero from '../components/hero/Hero.jsx';
 
 
 const Home = () => {

@@ -52,7 +52,8 @@ const Header = () => {
                     <div className="header-menu gap-5 flexCenter transition-all duration-300 ease-in z-30"
                         style={getMenuStyle(menuOpen)}>
                          <NavLink to="/properties">Properties</NavLink>
-                         <a href="mailto:dummyEmail@gmail.com">Contact</a>
+                         <a href="mailto:test@gmail.com"
+                            >Contact</a>
 
 
 

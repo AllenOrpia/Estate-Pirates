@@ -45,13 +45,13 @@ const Layout = () => {
   }, [isAuthenticated]);
   
   return (
-    <>
-      <div className=' bg-black overflow-hidden'>
+    <section >
+      <div className=' bg-black overflow-hidden' >
         <Header />
         <Outlet />
       </div>
       <Footer />
-    </>
+    </section>
   )
 }
 

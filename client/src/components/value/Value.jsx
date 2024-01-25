@@ -10,7 +10,7 @@ const Value = () => {
     <section>
         <div className='paddings innerWidth flex justify-center gap-10 items-center lg:flex-nowrap flex-wrap'>
             {/* Left Section */}
-            <div >
+            <div className='hidden lg:block'>
                 <div className='image-container  '>
                     <img src="./value.png" alt="" />
                 </div>
@@ -18,7 +18,7 @@ const Value = () => {
 
             {/* Right Side */}
             <div className='flexColStart gap-2 '>
-                <span className='text-teal-600 text-xl font-semibold'>Our Value</span>
+                <span className='text-blue-600 text-xl font-semibold'>Our Value</span>
                 <span className='text-slate-600 text-3xl font-bold'>Value We Provide </span>
                 <span className='text-slate-500 text-xl '>
                     We at Estate Pirates pride ourselves in our services.
@@ -42,7 +42,7 @@ const Value = () => {
                                                 { ({ expanded }) => expanded ? setClassName("expanded") : setClassName("collapsed")}
                                             </AccordionItemState>
 
-                                            <div className="flexCenter icon p-2 rouned-lg text-teal-600">{item.icon}</div>
+                                            <div className="flexCenter icon p-2 rouned-lg text-blue-500">{item.icon}</div>
                                             <p className='text-slate-600 text-3xl font-bold text-center'>
                                                 {item.heading}
                                             </p>

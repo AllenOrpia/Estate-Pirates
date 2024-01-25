@@ -44,12 +44,13 @@ const Heart = ({id}) => {
     
   return (
     <AiFillHeart size={24} 
-        className='absolute top-20 right-12 cursor-pointer'
+        className='heart cursor-pointer'
         color={heartColor} 
         onClick={(e) => {
             e.stopPropagation();
             handleLike()
         }}
+        
     />
   )
 }

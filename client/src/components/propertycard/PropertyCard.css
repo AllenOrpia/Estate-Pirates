@@ -1,0 +1,8 @@
+
+
+.heart {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    z-index: 1;
+}

@@ -5,14 +5,14 @@ import { HiChatBubbleBottomCenter } from 'react-icons/hi2'
 
 const Contact = () => {
     return (
-        <section>
+        <section id='contact'>
             <div className='mt-3 contact-container paddings innerWidth flex flex-col lg:flex-row lg:justify-between justify-center items-center flex-nowrap gap-2'>
                 {/* Left Side */}
                 <div className='flex flex-col justify-start items-center lg:items-start flex-1 gap-2 '>
-                    <span className=' text-teal-600 text-xl font-semibold'>Our Contacts</span>
+                    <span className=' text-blue-600 text-xl font-semibold'>Our Contacts</span>
                     <span className='text-slate-600 text-3xl font-bold'>Easy Contact</span>
                     <span className='text-slate-500 text-xl'>
-                        24/7 Service. Whenever you need us we are ready and waiting to help!
+                        24/7 Service. Whenever you need us we are ready to help!
                     </span>
 
                     <div className='flexColStart contactModes mt-8 gap-4 '>
@@ -83,7 +83,7 @@ const Contact = () => {
 
                 {/* Right Side */}
                 
-                    <div className='image-container'>
+                    <div className='image-container hidden lg:block'>
                         <img src="./contact.jpg" alt="" className='h-full self-center lg:self-start' />
                     </div>
                 
