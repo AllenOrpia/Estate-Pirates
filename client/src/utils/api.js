@@ -6,6 +6,7 @@ export const api = axios.create({
     baseURL : "https://estate-pirates.vercel.app/api"
 })
 
+
 export const getAllProperties = async() => {
     try {
         const res = await api.get('/property/all-properties', {

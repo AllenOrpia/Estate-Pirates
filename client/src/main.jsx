@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       domain={import.meta.env.VITE_AUTH0_DOMAIN}
       clientId={import.meta.env.VITE_AUTH0_CLIENTID}
       authorizationParams={{
-        redirect_uri: "http://localhost:5173"
+        redirect_uri: "https://estatepirates.vercel.app/"
       }}
       audience="http://localhost:3000" 
       scope="openid profile email"
