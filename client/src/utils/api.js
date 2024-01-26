@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import {toast} from 'react-toastify'
 
 export const api = axios.create({
-    baseURL : "https://estate-pirates-6hnzhm7tj-allen-orpias-projects.vercel.app/api"
+    baseURL : "https://estate-pirates.vercel.app/api"
 })
 
 
