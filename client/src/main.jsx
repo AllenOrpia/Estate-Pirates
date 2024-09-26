@@ -23,11 +23,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       authorizationParams={{
         redirect_uri: "https://estatepirates.vercel.app/"
       }}
-      audience="http://localhost:3000" 
+      audience="http://localhost:3000"
       scope="openid profile email"
-      >
-      
-        <App />
+    >
+
+      <App />
 
     </Auth0Provider>
   </React.StrictMode>,
